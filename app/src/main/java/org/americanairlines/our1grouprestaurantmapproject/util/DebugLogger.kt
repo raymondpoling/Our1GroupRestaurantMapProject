@@ -5,13 +5,14 @@ import android.util.Log
 class DebugLogger {
     companion object {
         private const val LOG = "LOG_X"
+        private const val ELOG ="ERROR_LOG_X"
 
-        fun log(message: String) {
+        fun logger(message: String) {
             Log.d(LOG, message)
         }
 
-        fun elog(errMessage: String) {
-            Log.d(LOG, errMessage)
+        fun elogger(errMessage: String) {
+            Log.e(ELOG, errMessage)
         }
 
     }

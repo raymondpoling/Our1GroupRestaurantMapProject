@@ -4,7 +4,7 @@ class Constants {
 
     companion object {
         const val BASE_URL = ""
-        const val PLANET_PATH = ""
+        const val PLACES_PATH = ""
         const val SEARCH_QUERY = ""
     }
 }

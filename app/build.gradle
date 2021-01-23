@@ -67,14 +67,6 @@ dependencies {
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.0'
 
 
-//androidx viewModels for Kotlin
-    implementation "androidx.activity:activity-ktx:1.1.0"
-
-    implementation 'androidx.fragment:fragment-ktx:1.2.5'
-
-    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.6'
-
-
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
