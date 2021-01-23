@@ -8,7 +8,7 @@ android {
     buildToolsVersion "30.0.3"
 
     defaultConfig {
-        applicationId "org.mousehole.americanairlines.our1grouprestaurantmapproject"
+        applicationId "org.americanairlines.our1grouprestaurantmapproject"
         minSdkVersion 21
         targetSdkVersion 30
         versionCode 1
@@ -43,6 +43,10 @@ dependencies {
     implementation 'com.google.android.material:material:1.2.1'
     implementation 'com.google.android.gms:play-services-maps:17.0.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+
+
+
+
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
