@@ -1,6 +1,6 @@
 package org.americanairlines.our1grouprestaurantmapproject.model
 
-data class Result(
+data class PlaceResult(
     val geometry: Geometry,
     val icon: String,
     val id: String,
