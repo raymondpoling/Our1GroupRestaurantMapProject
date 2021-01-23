@@ -1,0 +1,2 @@
+rootProject.name = "Our1GroupRestaurantMapProject"
+include ':app'
