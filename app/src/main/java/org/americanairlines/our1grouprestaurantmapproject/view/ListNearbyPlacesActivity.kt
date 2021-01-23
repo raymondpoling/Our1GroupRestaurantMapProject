@@ -1,7 +1,8 @@
-package org.americanairlines.our1grouprestaurantmapproject
+package org.americanairlines.our1grouprestaurantmapproject.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import org.americanairlines.our1grouprestaurantmapproject.R
 
 
 class ListNearbyPlacesActivity : AppCompatActivity() {
