@@ -1,5 +1,8 @@
 package org.americanairlines.our1grouprestaurantmapproject.model
 
+import android.arch.persistence.room.Entity
+
+@Entity
 data class PlaceResult(
     val geometry: Geometry,
     val icon: String,
