@@ -14,20 +14,10 @@ class PlaceViewModel: ViewModel() {
     private val placeRetrofit: PlaceRetrofit = PlaceRetrofit
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
-//    fun getSearchResults(searchQueryPlace: String){
-//        compositeDisposable.add(
-//            placeRetrofit.getSearchQuery("")
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribeOn(Schedulers.io())
-//                .map{
-//
-//                }
-//                .subscribe({
-//                    placeLiveData.postValue()
-//                    compositeDisposable.clear()
-//                })
-//        )
-//    }
+    fun getSearchResults(searchQueryPlace: String){
+
+
+    }
 
     override fun onCleared() {
         super.onCleared()
