@@ -1,8 +1,10 @@
 package org.americanairlines.our1grouprestaurantmapproject.network
 
-class PlaceRetrofit {
-    fun getSearchQuery(s: String): Disposable {
+import io.reactivex.disposables.Disposable
 
+class PlaceRetrofit {
+    fun getSearchQuery(s: String): String {
+        return "Place holder"
     }
 
     //Place holder class
