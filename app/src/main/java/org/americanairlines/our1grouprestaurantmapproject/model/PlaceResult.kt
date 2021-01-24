@@ -1,6 +1,7 @@
 package org.americanairlines.our1grouprestaurantmapproject.model
 
-import android.arch.persistence.room.Entity
+import androidx.room.Entity
+
 
 @Entity
 data class PlaceResult(
