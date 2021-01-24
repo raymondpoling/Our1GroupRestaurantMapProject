@@ -8,7 +8,7 @@ class Constants {
     companion object {
         const val BASE_URL = "https://maps.googleapis.com/"
         const val API_KEY = "key"
-        const val PLACES_PATH = "maps/api/place/nearbysearch/json"
+        const val PLACES_PATH = "maps/api/place/nearbysearch/json?rankby=distance"
 
         // parameter arguments for PLACES_PATH
         const val LOCATION = "location"

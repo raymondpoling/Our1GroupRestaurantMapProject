@@ -4,7 +4,7 @@ import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Update
-import org.americanairlines.our1grouprestaurantmapproject.model.PlaceResult
+import org.americanairlines.our1grouprestaurantmapproject.model.googleapi.PlaceResult
 
 @Dao
 interface PlaceDAO {
