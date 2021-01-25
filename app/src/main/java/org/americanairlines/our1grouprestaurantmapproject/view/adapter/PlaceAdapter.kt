@@ -7,13 +7,12 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import org.americanairlines.our1grouprestaurantmapproject.R
 import org.americanairlines.our1grouprestaurantmapproject.model.NearbyPlacesModel
-import org.americanairlines.our1grouprestaurantmapproject.model.googleapi.PlaceResult
 import org.americanairlines.our1grouprestaurantmapproject.util.DebugLogger
 
 class PlaceAdapter (private var placeList: List<NearbyPlacesModel>) : RecyclerView.Adapter<PlaceAdapter.PlaceViewHolder>() {
 
 <<<<<<< HEAD
-    fun updatePlaceList(placeList: List<PlaceResult>) {
+    fun updatePlaceList(placeList: List<NearbyPlacesModel>) {
 =======
 
     fun updatePlaceList(placeList: List<NearbyPlacesModel>) {
