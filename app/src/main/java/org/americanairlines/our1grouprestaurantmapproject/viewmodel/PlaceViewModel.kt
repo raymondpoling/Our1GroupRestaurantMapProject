@@ -17,13 +17,13 @@ class PlaceViewModel : ViewModel() {
     val placeLiveData: MutableLiveData<List<PlaceResult>> = MutableLiveData()
     private val placeRetrofit: PlaceRetrofit = PlaceRetrofit
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
-    private val nearbyLiveData: MutableLiveData<List<NearbyPlacesModel>> = MutableLiveData()
+    private var nearbyLiveData: MutableLiveData<List<NearbyPlacesModel>> = MutableLiveData()
     private var placeResultRepository: PlaceResultRepository = PlaceResultRepository()
 
 
     fun getNearbyPlaces(location: LatLng): LiveData<List<NearbyPlacesModel>> {
 
-        placeResultRepository.getNearbyPlaces(location)
+       nearbyLiveData = placeResultRepository.getNearbyPlaces(location) as MutableLiveData<List<NearbyPlacesModel>>
         return nearbyLiveData
     }
 
