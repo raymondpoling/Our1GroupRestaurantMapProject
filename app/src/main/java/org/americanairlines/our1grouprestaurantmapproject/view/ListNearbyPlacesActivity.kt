@@ -47,6 +47,8 @@ class ListNearbyPlacesActivity : AppCompatActivity(), LocationListener {
     private lateinit var overlay: ConstraintLayout
     private lateinit var openSettingsButton: Button
 
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list_nearby_places)
@@ -73,11 +75,6 @@ class ListNearbyPlacesActivity : AppCompatActivity(), LocationListener {
 
         overlay.visibility = View.GONE
         checkLocationPermission()
-
-//
-//        var myLoc: LatLng = LatLng(33.74, 84.38)
-//
-//        viewModel.getNearbyPlaces(myLoc)
 
     }
 
