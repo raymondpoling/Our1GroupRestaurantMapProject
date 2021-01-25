@@ -18,9 +18,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.RecyclerView
-import io.reactivex.Observer
 import org.americanairlines.our1grouprestaurantmapproject.R
-import org.americanairlines.our1grouprestaurantmapproject.model.NearbyPlacesModel
 import org.americanairlines.our1grouprestaurantmapproject.util.DebugLogger.Companion.logger
 import org.americanairlines.our1grouprestaurantmapproject.view.adapter.PlaceAdapter
 import org.americanairlines.our1grouprestaurantmapproject.viewmodel.PlaceViewModel
@@ -79,7 +77,7 @@ class ListNearbyPlacesActivity : AppCompatActivity(), LocationListener {
 
         overlay.visibility = View.GONE
         checkLocationPermission()
-        viewModel.getSearchResults(0.0, 0.0)
+        viewModel.getSearchResults(33.0, -85.0)
             .observe(this, {
                 logger("Logging information: $it")
                 placeAdapter.updatePlaceList(it)
