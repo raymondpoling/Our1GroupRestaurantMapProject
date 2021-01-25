@@ -14,20 +14,20 @@ import org.americanairlines.our1grouprestaurantmapproject.repository.PlaceResult
 
 class PlaceViewModel : ViewModel() {
 
-    val placeLiveData: MutableLiveData<List<PlaceResult>> = MutableLiveData()
-    private val placeRetrofit: PlaceRetrofit = PlaceRetrofit
-    private val compositeDisposable: CompositeDisposable = CompositeDisposable()
-    private lateinit var nearbyLiveData: LiveData<List<NearbyPlacesModel>>
-    private var placeResultRepository: PlaceResultRepository = PlaceResultRepository()
-
-
-    fun getNearbyPlaces(location: LatLng): LiveData<List<NearbyPlacesModel>> {
-
-       nearbyLiveData = placeResultRepository.getNearbyPlaces(location)
-        return nearbyLiveData
-    }
-
-    override fun onCleared() {
-        super.onCleared()
-    }
+//    val placeLiveData: MutableLiveData<List<PlaceResult>> = MutableLiveData()
+//    private val placeRetrofit: PlaceRetrofit = PlaceRetrofit
+//    private val compositeDisposable: CompositeDisposable = CompositeDisposable()
+//    private lateinit var nearbyLiveData: LiveData<List<NearbyPlacesModel>>
+//    private var placeResultRepository: PlaceResultRepository = PlaceResultRepository()
+//
+//
+//    fun getNearbyPlaces(location: LatLng): LiveData<List<NearbyPlacesModel>> {
+//
+//       nearbyLiveData = placeResultRepository.getNearbyPlaces(location)
+//        return nearbyLiveData
+//    }
+//
+//    override fun onCleared() {
+//        super.onCleared()
+//    }
 }

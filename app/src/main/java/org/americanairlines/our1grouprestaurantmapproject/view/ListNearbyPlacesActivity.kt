@@ -47,11 +47,16 @@ class ListNearbyPlacesActivity : AppCompatActivity(), LocationListener {
     private lateinit var overlay: ConstraintLayout
     private lateinit var openSettingsButton: Button
 
-
+    companion object {
+        private lateinit var context : Context
+        fun getContext() : Context = context
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list_nearby_places)
+
+        context = this
 
         locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
         placeRecyclerView = findViewById(R.id.recyclerview_list_nearby)
@@ -95,7 +100,7 @@ class ListNearbyPlacesActivity : AppCompatActivity(), LocationListener {
 
         ActivityCompat.requestPermissions(
             this,
-            arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION),
+            arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
             LOCATION_REQUEST_CODE
         )
     }
@@ -114,14 +119,14 @@ class ListNearbyPlacesActivity : AppCompatActivity(), LocationListener {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
 
         if (requestCode == LOCATION_REQUEST_CODE) {
-            if (permissions[0] == android.Manifest.permission.ACCESS_FINE_LOCATION) {
+            if (permissions[0] == Manifest.permission.ACCESS_FINE_LOCATION) {
                 if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
 
                 } else {
                     if (ActivityCompat.shouldShowRequestPermissionRationale(
                             this,
-                            android.Manifest.permission.ACCESS_FINE_LOCATION
+                            Manifest.permission.ACCESS_FINE_LOCATION
                         )
                     ) {
                         requestLocationPermission()
