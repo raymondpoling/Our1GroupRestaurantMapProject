@@ -18,10 +18,11 @@ interface PlaceDAO {
 
     @Query("SELECT * " +
             "FROM $NEARBY_PLACES " +
-            "WHERE ABS(ABS(:lat) - ABS(latitude)) < $NEAR " +
-            "AND ABS(ABS(:long) - ABS(longitude)) < $NEAR"
+            "WHERE ABS(:lat - latitude) < $NEAR " +
+            "AND ABS(:long - longitude) < $NEAR " +
+            "ORDER BY ABS(:lat - latitude) + ABS(:long - longitude) DESC"
     )
-    fun getFromLocation(lat: Double, long : Double) : LiveData<List<NearbyPlacesModel>>
+    fun getFromLocation(lat: Double, long : Double) : List<NearbyPlacesModel>
 
     @Delete
     fun deletePlace(place: NearbyPlacesModel) : Unit
