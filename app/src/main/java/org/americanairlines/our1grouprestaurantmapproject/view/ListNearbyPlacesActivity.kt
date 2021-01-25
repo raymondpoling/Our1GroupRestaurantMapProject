@@ -85,7 +85,15 @@ class ListNearbyPlacesActivity : AppCompatActivity(), LocationListener {
 
     private fun checkLocationPermission() {
 
-
+        if (ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            )
+            == PackageManager.PERMISSION_GRANTED
+        ) {
+            registerLocationManager()
+        } else
+            requestLocationPermission()
     }
 
     override fun onLocationChanged(location: Location) {
