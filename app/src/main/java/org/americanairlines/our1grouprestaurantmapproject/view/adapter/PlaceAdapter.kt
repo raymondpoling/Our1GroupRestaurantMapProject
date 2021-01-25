@@ -7,17 +7,11 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import org.americanairlines.our1grouprestaurantmapproject.R
 import org.americanairlines.our1grouprestaurantmapproject.model.NearbyPlacesModel
-import org.americanairlines.our1grouprestaurantmapproject.util.DebugLogger
 
 class PlaceAdapter (private var placeList: List<NearbyPlacesModel>) : RecyclerView.Adapter<PlaceAdapter.PlaceViewHolder>() {
 
-<<<<<<< HEAD
-    fun updatePlaceList(placeList: List<NearbyPlacesModel>) {
-=======
 
     fun updatePlaceList(placeList: List<NearbyPlacesModel>) {
-        DebugLogger.logger("toggling ${this.placeList.size} changes on ${this.placeList.reversed().map {it.name}}")
->>>>>>> ef9e5a4ddeb13ae6c193a2d7488d04e51f607a3b
         this.placeList = placeList
         notifyDataSetChanged()
     }
