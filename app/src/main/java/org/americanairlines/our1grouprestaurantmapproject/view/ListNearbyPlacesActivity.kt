@@ -68,9 +68,10 @@ class ListNearbyPlacesActivity : AppCompatActivity(), LocationListener {
 //        })
     }// End of onCreate
 
-    @SuppressLint("MissingPermission")
     override fun onStart() {
         super.onStart()
+
+        overlay.visibility = View.GONE
         checkLocationPermission()
 
 //
