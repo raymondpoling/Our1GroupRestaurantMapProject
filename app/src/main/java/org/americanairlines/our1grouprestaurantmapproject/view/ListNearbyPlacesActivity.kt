@@ -24,6 +24,7 @@ import io.reactivex.Observer
 import org.americanairlines.our1grouprestaurantmapproject.R
 import org.americanairlines.our1grouprestaurantmapproject.model.googleapi.Geometry
 import org.americanairlines.our1grouprestaurantmapproject.model.googleapi.PlaceResult
+import org.americanairlines.our1grouprestaurantmapproject.util.DebugLogger.Companion.logger
 import org.americanairlines.our1grouprestaurantmapproject.view.adapter.PlaceAdapter
 import org.americanairlines.our1grouprestaurantmapproject.viewmodel.PlaceViewModel
 
@@ -48,8 +49,8 @@ class ListNearbyPlacesActivity : AppCompatActivity(), LocationListener {
     private lateinit var openSettingsButton: Button
 
     companion object {
-        private lateinit var context : Context
-        fun getContext() : Context = context
+        private lateinit var context: Context
+        fun getContext(): Context = context
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -69,17 +70,23 @@ class ListNearbyPlacesActivity : AppCompatActivity(), LocationListener {
             val uri = Uri.fromParts("package", packageName, "Permissions")
             intent.data = uri
             startActivity(intent)
-        }
-//        viewModel.placeLiveData.observe(this, Observer {
-//            placeAdapter.updatePlaceList(it as List<PlaceResult>)
-//        })
-    }// End of onCreate
+
+        }// setOnClickListener
+
+
+    }
+
 
     override fun onStart() {
         super.onStart()
 
         overlay.visibility = View.GONE
         checkLocationPermission()
+        viewModel.getSearchResults(33.0, -85.0)
+            .observe(this, {
+                logger("Logging information: $it")
+                placeAdapter.updatePlaceList(it)
+            })
 
     }
 
@@ -141,6 +148,7 @@ class ListNearbyPlacesActivity : AppCompatActivity(), LocationListener {
 
     /***************************************************************************************/
     override fun onLocationChanged(location: Location) {
-
+        logger("We have location {${location.latitude},${location.longitude}}")
+        viewModel.getSearchResults(location.latitude, location.longitude)
     }
 }// End of ListNearbyPlacesActivity

@@ -7,6 +7,7 @@ import org.americanairlines.our1grouprestaurantmapproject.model.data.PlaceDataba
 import org.americanairlines.our1grouprestaurantmapproject.model.googleapi.PlaceResponse
 import org.americanairlines.our1grouprestaurantmapproject.network.PlaceRetrofit
 import org.americanairlines.our1grouprestaurantmapproject.util.DebugLogger
+import org.americanairlines.our1grouprestaurantmapproject.util.DebugLogger.Companion.logger
 import org.americanairlines.our1grouprestaurantmapproject.view.ListNearbyPlacesActivity
 
 typealias PlaceSet = List<NearbyPlacesModel>
@@ -30,14 +31,12 @@ class PlaceResultRepository {
         Thread {
             // with live data I can't actually check the cache! This is terrible design.
             // Oh well.
-            if(liveData.value == null) {
-                DebugLogger.elogger("We got no db value!")
-                val response = PlaceRetrofit.getNearbyPlaces(latitude, longitude).execute()
-                if (response.isSuccessful) {
-                    DebugLogger.logger("We got body: ${response.body()}")
-                    response.body()?.also {
-                        placeDatabase.getPlacesDAO().insertPlaces(onSuccess(it))
-                    }
+            DebugLogger.elogger("We got no db value!")
+            val response = PlaceRetrofit.getNearbyPlaces(latitude, longitude).execute()
+            if (response.isSuccessful) {
+                DebugLogger.logger("We got body: ${response.body()}")
+                response.body()?.also {
+                    placeDatabase.getPlacesDAO().insertPlaces(onSuccess(it))
                 }
             }
         }.start()
@@ -46,6 +45,7 @@ class PlaceResultRepository {
 
     private fun onSuccess(placeResponse: PlaceResponse) : List<NearbyPlacesModel> =
                 placeResponse.results.map { t ->
+                    logger("trying to create ${t.name} entry")
                     NearbyPlacesModel(
                         t.geometry.location.lat,
                         t.geometry.location.lng,

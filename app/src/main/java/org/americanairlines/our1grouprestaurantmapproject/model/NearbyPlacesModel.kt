@@ -2,6 +2,7 @@ package org.americanairlines.our1grouprestaurantmapproject.model
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.Index
 import androidx.room.PrimaryKey
 import com.google.android.gms.maps.model.LatLng
 import org.americanairlines.our1grouprestaurantmapproject.util.Constants.Companion.NEARBY_PLACES
@@ -12,7 +13,9 @@ import org.americanairlines.our1grouprestaurantmapproject.util.Constants.Compani
  * The primary key is nullable since only room, not our application, should be setting it.
  */
 
-@Entity(tableName = NEARBY_PLACES)
+@Entity(tableName = NEARBY_PLACES,
+        indices = [Index(value = ["latitude", "longitude"],
+        unique = true)])
 data class NearbyPlacesModel(
         @ColumnInfo(name = "latitude")
         var latitude : Double,
