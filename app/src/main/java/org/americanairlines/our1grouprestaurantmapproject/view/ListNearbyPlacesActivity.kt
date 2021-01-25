@@ -46,6 +46,9 @@ class ListNearbyPlacesActivity : AppCompatActivity(), LocationListener {
     private val LOCATION_REQUEST_CODE = 707
     private lateinit var overlay: ConstraintLayout
     private lateinit var openSettingsButton: Button
+    private lateinit var location: org.americanairlines.our1grouprestaurantmapproject.model.googleapi.Location
+    private lateinit var myLoc: LatLng
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -74,10 +77,14 @@ class ListNearbyPlacesActivity : AppCompatActivity(), LocationListener {
         overlay.visibility = View.GONE
         checkLocationPermission()
 
-//
-//        var myLoc: LatLng = LatLng(33.74, 84.38)
-//
-//        viewModel.getNearbyPlaces(myLoc)
+//TODO Use actual location rather than the following hard coded location
+        location = org.americanairlines.our1grouprestaurantmapproject.model.googleapi.Location(
+            63.35,
+            83.35
+        )
+        myLoc = location.toLatLng()
+
+        viewModel.getNearbyPlaces(myLoc)
 
     }
 
