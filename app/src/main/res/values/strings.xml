@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">We\'re Near What?</string>
+    <string name="permissions_message">Permissions needed to continue</string>
+    <string name="open_settings">Open Settings</string>
 </resources>
