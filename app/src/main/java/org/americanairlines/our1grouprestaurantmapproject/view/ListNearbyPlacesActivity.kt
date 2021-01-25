@@ -73,27 +73,15 @@ class ListNearbyPlacesActivity : AppCompatActivity(), LocationListener {
         super.onStart()
         checkLocationPermission()
 
-
-        var myLoc: LatLng = LatLng(33.74, 84.38)
-
-        viewModel.getNearbyPlaces(myLoc)
+//
+//        var myLoc: LatLng = LatLng(33.74, 84.38)
+//
+//        viewModel.getNearbyPlaces(myLoc)
 
     }
 
     private fun checkLocationPermission() {
 
-        if (ActivityCompat.checkSelfPermission(
-                this,
-                Manifest.permission.ACCESS_FINE_LOCATION
-            )
-            == PackageManager.PERMISSION_GRANTED
-        ) {
-            registerLocationManager()
-        } else
-            requestLocationPermission()
-    }
-
-    override fun onLocationChanged(location: Location) {
         if (ActivityCompat.checkSelfPermission(
                 this,
                 Manifest.permission.ACCESS_FINE_LOCATION
@@ -139,8 +127,7 @@ class ListNearbyPlacesActivity : AppCompatActivity(), LocationListener {
                         )
                     ) {
                         requestLocationPermission()
-
-
+                    } else {
 
                         overlay.visibility = View.VISIBLE
                     }
@@ -148,6 +135,9 @@ class ListNearbyPlacesActivity : AppCompatActivity(), LocationListener {
             }
         }
     }// End onRequestPermissionsResult
-    /***************************************************************************************/
 
+    /***************************************************************************************/
+    override fun onLocationChanged(location: Location) {
+
+    }
 }// End of ListNearbyPlacesActivity
