@@ -19,24 +19,31 @@ import androidx.activity.viewModels
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.RecyclerView
+<<<<<<< HEAD
 import com.google.android.gms.maps.model.LatLng
 import io.reactivex.Observer
 import org.americanairlines.our1grouprestaurantmapproject.R
 import org.americanairlines.our1grouprestaurantmapproject.model.googleapi.Geometry
 import org.americanairlines.our1grouprestaurantmapproject.model.googleapi.PlaceResult
+=======
+import io.reactivex.Observer
+import org.americanairlines.our1grouprestaurantmapproject.R
+import org.americanairlines.our1grouprestaurantmapproject.model.NearbyPlacesModel
+import org.americanairlines.our1grouprestaurantmapproject.util.DebugLogger.Companion.logger
+>>>>>>> ef9e5a4ddeb13ae6c193a2d7488d04e51f607a3b
 import org.americanairlines.our1grouprestaurantmapproject.view.adapter.PlaceAdapter
 import org.americanairlines.our1grouprestaurantmapproject.viewmodel.PlaceViewModel
 
 
 class ListNearbyPlacesActivity : AppCompatActivity(), LocationListener {
 
-//TODO Homework Weekend: Due 24th 11:59pm - To be presented in training
-//TODO Create an application that polls for the user location and lists all the nearby places in a recyclerView
-//TODO - application should use Kotlin
-//TODO - MVVM
-//TODO - Should cache using Room Database for offline usage
-//TODO - Application should use material design
-//TODO - Runtime permissions
+// Homework Weekend: Due 24th 11:59pm - To be presented in training
+// Create an application that polls for the user location and lists all the nearby places in a recyclerView
+// - application should use Kotlin
+// - MVVM
+// - Should cache using Room Database for offline usage
+//- Application should use material design
+// - Runtime permissions
     /********************************************************************************/
 
     private val viewModel: PlaceViewModel by viewModels()
@@ -48,8 +55,8 @@ class ListNearbyPlacesActivity : AppCompatActivity(), LocationListener {
     private lateinit var openSettingsButton: Button
 
     companion object {
-        private lateinit var context : Context
-        fun getContext() : Context = context
+        private lateinit var context: Context
+        fun getContext(): Context = context
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -69,17 +76,23 @@ class ListNearbyPlacesActivity : AppCompatActivity(), LocationListener {
             val uri = Uri.fromParts("package", packageName, "Permissions")
             intent.data = uri
             startActivity(intent)
-        }
-//        viewModel.placeLiveData.observe(this, Observer {
-//            placeAdapter.updatePlaceList(it as List<PlaceResult>)
-//        })
-    }// End of onCreate
+
+        }// setOnClickListener
+
+
+    }
+
 
     override fun onStart() {
         super.onStart()
 
         overlay.visibility = View.GONE
         checkLocationPermission()
+        viewModel.getSearchResults(0.0, 0.0)
+            .observe(this, {
+                logger("Logging information: $it")
+                placeAdapter.updatePlaceList(it)
+            })
 
     }
 
@@ -141,6 +154,7 @@ class ListNearbyPlacesActivity : AppCompatActivity(), LocationListener {
 
     /***************************************************************************************/
     override fun onLocationChanged(location: Location) {
-
+        logger("We have location {${location.latitude},${location.longitude}}")
+        viewModel.getSearchResults(location.latitude, location.longitude)
     }
 }// End of ListNearbyPlacesActivity
