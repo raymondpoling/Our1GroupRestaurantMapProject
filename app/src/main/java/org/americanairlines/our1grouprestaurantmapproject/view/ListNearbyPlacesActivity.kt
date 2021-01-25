@@ -9,16 +9,21 @@ import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
 import android.net.Uri
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.Settings
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.gms.maps.model.LatLng
+import io.reactivex.Observer
 import org.americanairlines.our1grouprestaurantmapproject.R
+import org.americanairlines.our1grouprestaurantmapproject.model.googleapi.Geometry
+import org.americanairlines.our1grouprestaurantmapproject.model.googleapi.PlaceResult
 import org.americanairlines.our1grouprestaurantmapproject.view.adapter.PlaceAdapter
 import org.americanairlines.our1grouprestaurantmapproject.viewmodel.PlaceViewModel
 
@@ -75,11 +80,6 @@ class ListNearbyPlacesActivity : AppCompatActivity(), LocationListener {
 
         overlay.visibility = View.GONE
         checkLocationPermission()
-
-//
-//        var myLoc: LatLng = LatLng(33.74, 84.38)
-//
-//        viewModel.getNearbyPlaces(myLoc)
 
     }
 

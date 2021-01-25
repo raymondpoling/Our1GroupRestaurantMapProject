@@ -10,12 +10,10 @@ import org.americanairlines.our1grouprestaurantmapproject.model.googleapi.PlaceR
 
 class PlaceAdapter (private var placeList: List<PlaceResult>) : RecyclerView.Adapter<PlaceAdapter.PlaceViewHolder>() {
 
-
     fun updatePlaceList(placeList: List<PlaceResult>) {
         this.placeList = placeList
         notifyDataSetChanged()
     }
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlaceViewHolder {
         val itemView = LayoutInflater.from(parent.context)
