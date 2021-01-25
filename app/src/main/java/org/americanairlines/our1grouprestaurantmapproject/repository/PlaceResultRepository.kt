@@ -2,43 +2,53 @@ package org.americanairlines.our1grouprestaurantmapproject.repository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.room.Room
 import com.google.android.gms.maps.model.LatLng
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
 import org.americanairlines.our1grouprestaurantmapproject.model.NearbyPlacesModel
+import org.americanairlines.our1grouprestaurantmapproject.model.data.PlaceDatabase
 import org.americanairlines.our1grouprestaurantmapproject.model.googleapi.PlaceResponse
 import org.americanairlines.our1grouprestaurantmapproject.network.PlaceRetrofit
 import org.americanairlines.our1grouprestaurantmapproject.util.DebugLogger
+import org.americanairlines.our1grouprestaurantmapproject.view.ListNearbyPlacesActivity
 
 class PlaceResultRepository {
 
-    private val cd = CompositeDisposable()
+    private val placeDatabase: PlaceDatabase = Room.databaseBuilder(
+        ListNearbyPlacesActivity.getContext(),
+        PlaceDatabase::class.java,
+        PlaceDatabase.DATABASE_NAME
+    ).build()
 
-    private val nearbyLiveData : MutableLiveData<List<NearbyPlacesModel>> = MutableLiveData()
-
-    fun getNearbyPlaces(location : LatLng) : LiveData<List<NearbyPlacesModel>> {
-        // todo plug in ROOM database
-        cd.add(PlaceRetrofit.getNearbyPlaces(location)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
-                .subscribe(this::onSuccess,
-                        this::onFailure))
-        return nearbyLiveData
+    fun getNearbyPlaces(location: LatLng): LiveData<List<NearbyPlacesModel>> {
+        DebugLogger.logger("Trying to decode location: $location")
+        refresh(location)
+        return placeDatabase.getPlacesDAO().getFromLocation(location.latitude, location.longitude)
     }
 
-    private fun onSuccess(placeResponse: PlaceResponse) : Unit {
-        nearbyLiveData.postValue(
-                placeResponse.results.map {t ->
-                    NearbyPlacesModel(null,
-                    t.geometry.location.toLatLng(),
-                    t.vicinity,
-                    t.types.first(),
-                    t.name)})
-        cd.clear()
+    private fun refresh(location: LatLng) {
+        Thread {
+            val response = PlaceRetrofit.getNearbyPlaces(location).execute()
+            if (response.isSuccessful) {
+                DebugLogger.logger("We got body: ${response.body()}")
+                response.body()?.also {
+                    placeDatabase.getPlacesDAO().insertPlaces(onSuccess(it))
+                }
+            }
+        }.start()
     }
 
-    private fun onFailure(t : Throwable) : Unit {
+
+    private fun onSuccess(placeResponse: PlaceResponse) : List<NearbyPlacesModel> =
+                placeResponse.results.map { t ->
+                    NearbyPlacesModel(
+                        t.geometry.location.lat,
+                        t.geometry.location.lng,
+                        t.vicinity,
+                        t.types.first(),
+                        t.name)
+                }
+
+    private fun onFailure(t: Throwable) : Unit {
         DebugLogger.elogger("Received an error: ${t.message.toString()}")
     }
 

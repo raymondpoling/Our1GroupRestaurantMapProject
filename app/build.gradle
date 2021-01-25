@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -45,8 +46,8 @@ dependencies {
 
 
 //Room database
-    implementation "androidx.room:room-runtime:2.0.0"
-    annotationProcessor "androidx.room:room-compiler:2.0.0"
+    implementation "androidx.room:room-runtime:2.2.6"
+    kapt "androidx.room:room-compiler:2.2.6"
 
 
 
@@ -69,5 +70,12 @@ dependencies {
 
 
     implementation 'com.google.android.gms:play-services-maps:17.0.0'
+
+}
+
+
+kapt {
+    correctErrorTypes true
+    generateStubs = true
 
 }
