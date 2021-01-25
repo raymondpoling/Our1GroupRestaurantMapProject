@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#E3FFFB"
+    android:background="@color/very_light_blue"
     tools:context=".view.ListNearbyPlacesActivity">
 
     <androidx.recyclerview.widget.RecyclerView
@@ -34,7 +34,7 @@
             android:id="@+id/message"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Permissions needed to continue"
+            android:text="@string/permissions_message"
             app:layout_constraintBottom_toTopOf="@id/button_open_settings"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -45,7 +45,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#123456"
-            android:text="Open Settings"
+            android:text="@string/open_settings"
             android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
