@@ -1,9 +1,7 @@
 package org.americanairlines.our1grouprestaurantmapproject.repository
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.room.Room
-import com.google.android.gms.maps.model.LatLng
 import org.americanairlines.our1grouprestaurantmapproject.model.NearbyPlacesModel
 import org.americanairlines.our1grouprestaurantmapproject.model.data.PlaceDatabase
 import org.americanairlines.our1grouprestaurantmapproject.model.googleapi.PlaceResponse
@@ -21,20 +19,20 @@ class PlaceResultRepository {
         PlaceDatabase.DATABASE_NAME
     ).build()
 
-    fun getNearbyPlaces(location: LatLng): LiveData<PlaceSet> {
-        DebugLogger.logger("Trying to decode location: $location")
-        val place = placeDatabase.getPlacesDAO().getFromLocation(location.latitude, location.longitude)
-        refresh(place, location)
+    fun getNearbyPlaces(latitude : Double, longitude : Double): LiveData<PlaceSet> {
+        DebugLogger.logger("Trying to decode location: $latitude,$longitude")
+        val place = placeDatabase.getPlacesDAO().getFromLocation(latitude, longitude)
+        refresh(place, latitude, longitude)
         return place
     }
 
-    private fun refresh(liveData: LiveData<PlaceSet>, location: LatLng) {
+    private fun refresh(liveData: LiveData<PlaceSet>, latitude: Double, longitude : Double) {
         Thread {
             // with live data I can't actually check the cache! This is terrible design.
             // Oh well.
             if(liveData.value == null) {
                 DebugLogger.elogger("We got no db value!")
-                val response = PlaceRetrofit.getNearbyPlaces(location).execute()
+                val response = PlaceRetrofit.getNearbyPlaces(latitude, longitude).execute()
                 if (response.isSuccessful) {
                     DebugLogger.logger("We got body: ${response.body()}")
                     response.body()?.also {

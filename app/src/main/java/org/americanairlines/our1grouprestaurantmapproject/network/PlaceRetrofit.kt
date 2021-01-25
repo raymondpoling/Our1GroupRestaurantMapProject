@@ -1,7 +1,5 @@
 package org.americanairlines.our1grouprestaurantmapproject.network
 
-import com.google.android.gms.maps.model.LatLng
-import io.reactivex.Observable
 import org.americanairlines.our1grouprestaurantmapproject.R
 import org.americanairlines.our1grouprestaurantmapproject.model.googleapi.PlaceResponse
 import org.americanairlines.our1grouprestaurantmapproject.util.Constants.Companion.BASE_URL
@@ -27,11 +25,8 @@ object PlaceRetrofit {
 
     private val placesAPI : PlacesAPI = retrofit.create(PlacesAPI::class.java)
 
-    fun getNearbyPlaces(location: LatLng) : Call<PlaceResponse> {
-        return placesAPI.getNearbyPlaces(apiKey, location.paramString())
+    fun getNearbyPlaces(latitide : Double, longitude : Double) : Call<PlaceResponse> {
+        return placesAPI.getNearbyPlaces(apiKey, "$latitide,$longitude")
     }
-
-    // extension function to define how LatLng is to be printed in calls
-    private fun LatLng.paramString() : String = "${this.latitude},${this.longitude}"
 
 }
