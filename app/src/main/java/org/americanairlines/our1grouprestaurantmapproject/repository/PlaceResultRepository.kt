@@ -11,6 +11,8 @@ import org.americanairlines.our1grouprestaurantmapproject.network.PlaceRetrofit
 import org.americanairlines.our1grouprestaurantmapproject.util.DebugLogger
 import org.americanairlines.our1grouprestaurantmapproject.view.ListNearbyPlacesActivity
 
+typealias PlaceSet = List<NearbyPlacesModel>
+
 class PlaceResultRepository {
 
     private val placeDatabase: PlaceDatabase = Room.databaseBuilder(
@@ -19,19 +21,25 @@ class PlaceResultRepository {
         PlaceDatabase.DATABASE_NAME
     ).build()
 
-    fun getNearbyPlaces(location: LatLng): LiveData<List<NearbyPlacesModel>> {
+    fun getNearbyPlaces(location: LatLng): LiveData<PlaceSet> {
         DebugLogger.logger("Trying to decode location: $location")
-        refresh(location)
-        return placeDatabase.getPlacesDAO().getFromLocation(location.latitude, location.longitude)
+        val place = placeDatabase.getPlacesDAO().getFromLocation(location.latitude, location.longitude)
+        refresh(place, location)
+        return place
     }
 
-    private fun refresh(location: LatLng) {
+    private fun refresh(liveData: LiveData<PlaceSet>, location: LatLng) {
         Thread {
-            val response = PlaceRetrofit.getNearbyPlaces(location).execute()
-            if (response.isSuccessful) {
-                DebugLogger.logger("We got body: ${response.body()}")
-                response.body()?.also {
-                    placeDatabase.getPlacesDAO().insertPlaces(onSuccess(it))
+            // with live data I can't actually check the cache! This is terrible design.
+            // Oh well.
+            if(liveData.value == null) {
+                DebugLogger.elogger("We got no db value!")
+                val response = PlaceRetrofit.getNearbyPlaces(location).execute()
+                if (response.isSuccessful) {
+                    DebugLogger.logger("We got body: ${response.body()}")
+                    response.body()?.also {
+                        placeDatabase.getPlacesDAO().insertPlaces(onSuccess(it))
+                    }
                 }
             }
         }.start()

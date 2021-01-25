@@ -12,7 +12,7 @@ import org.americanairlines.our1grouprestaurantmapproject.util.Constants.Compani
  * The primary key is nullable since only room, not our application, should be setting it.
  */
 
-@Entity(tableName = NEARBY_PLACES, primaryKeys = ["latitude","longitude"])
+@Entity(tableName = NEARBY_PLACES)
 data class NearbyPlacesModel(
         @ColumnInfo(name = "latitude")
         var latitude : Double,
@@ -23,5 +23,8 @@ data class NearbyPlacesModel(
         @ColumnInfo(name = "location_type")
         var locationType : String,
         @ColumnInfo(name = "place_name")
-        var name : String
-)
+        var name : String,
+        @PrimaryKey(autoGenerate = true)
+        @ColumnInfo(name = "id")
+        var id : Int? = null
+        )
