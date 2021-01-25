@@ -51,7 +51,7 @@ class ListNearbyPlacesActivity : AppCompatActivity(), LocationListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list_nearby_places)
 
-
+        locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
         placeRecyclerView = findViewById(R.id.recyclerview_list_nearby)
         placeRecyclerView.adapter = placeAdapter
         overlay = findViewById(R.id.permission_overlay)
@@ -73,9 +73,6 @@ class ListNearbyPlacesActivity : AppCompatActivity(), LocationListener {
         super.onStart()
         checkLocationPermission()
 
-        locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
-
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000L, 2F, this)
 
         var myLoc: LatLng = LatLng(33.74, 84.38)
 
