@@ -15,7 +15,7 @@ class Constants {
         const val RADIUS = "radius"
 
         // what ROOM should consider to be `near'
-        const val NEAR : Double = 5.0
+        const val NEAR : Double = 0.05
 
         // room variable
         const val NEARBY_PLACES : String = "nearby_places"
