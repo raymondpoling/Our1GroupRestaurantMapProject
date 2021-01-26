@@ -20,7 +20,7 @@ interface PlaceDAO {
             "FROM $NEARBY_PLACES " +
             "WHERE ABS(:lat - latitude) < $NEAR " +
             "AND ABS(:long - longitude) < $NEAR " +
-            "ORDER BY ABS(:lat - latitude) + ABS(:long - longitude) DESC"
+            "ORDER BY ABS(:lat - latitude) + ABS(:long - longitude) ASC"
     )
     fun getFromLocation(lat: Double, long : Double) : List<NearbyPlacesModel>
 

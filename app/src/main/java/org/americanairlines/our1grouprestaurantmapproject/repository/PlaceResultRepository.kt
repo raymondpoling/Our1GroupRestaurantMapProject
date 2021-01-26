@@ -42,7 +42,7 @@ class PlaceResultRepository(val placeLiveData : MutableLiveData<PlaceSet>) {
             // with live data I can't actually check the cache! This is terrible design.
             // Oh well.
             DebugLogger.elogger("We got no db value!")
-            val response = PlaceRetrofit.getNearbyPlaces(latitude, longitude).enqueue(object : Callback<PlaceResponse> {
+            PlaceRetrofit.getNearbyPlaces(latitude, longitude).enqueue(object : Callback<PlaceResponse> {
                 override fun onResponse(call: Call<PlaceResponse>, response: Response<PlaceResponse>) {
                     Thread {
                         if (response.isSuccessful) {
